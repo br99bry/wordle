@@ -81,8 +81,12 @@ module.exports = {
           },
         ],
       },
+      minWidth: {
+        "key-board": "45px",
+      },
       minHeight: {
         "1/2": "50%",
+        "key-board": "51px",
       },
       maxHeight: {
         95: "95vh",

@@ -1,41 +1,62 @@
-import LetterCard from "../atoms/LetterCard"
+import React from "react";
+import LetterCard from "../atoms/LetterCard";
 
-const Board = ({ wordsState, colors }): JSX.Element => {
+interface BoardProps {
+  wordsState: {
+    [key: string]: (string | undefined)[];
+  };
+  colors: {
+    [key: string]: string[];
+  };
+}
+
+const Board: React.FC<BoardProps> = ({ wordsState, colors }) => {
   const boardItem1 = Array.from({ length: 5 });
   const boardItem2 = Array.from({ length: 5 });
   const boardItem3 = Array.from({ length: 5 });
   const boardItem4 = Array.from({ length: 5 });
   const boardItem5 = Array.from({ length: 5 });
+
   const itemList1 = boardItem1.map((_, index) => (
     <LetterCard customClass={`${colors['1'][index]} rounded-hard w-20 h-20`} key={index}>
       <span className="text-sub-big text-white">
         {wordsState['1'][index]?.toUpperCase() || ''}
       </span>
-    </LetterCard>))
+    </LetterCard>
+  ));
+
   const itemList2 = boardItem2.map((_, index) => (
     <LetterCard customClass={`${colors['2'][index]} rounded-hard w-20 h-20`} key={index}>
       <span className="text-sub-big text-white">
         {wordsState['2'][index]?.toUpperCase() || ''}
       </span>
-    </LetterCard>))
+    </LetterCard>
+  ));
+
   const itemList3 = boardItem3.map((_, index) => (
     <LetterCard customClass={`${colors['3'][index]} rounded-hard w-20 h-20`} key={index}>
       <span className="text-sub-big text-white">
         {wordsState['3'][index]?.toUpperCase() || ''}
       </span>
-    </LetterCard>))
+    </LetterCard>
+  ));
+
   const itemList4 = boardItem4.map((_, index) => (
     <LetterCard customClass={`${colors['4'][index]} rounded-hard w-20 h-20`} key={index}>
       <span className="text-sub-big text-white">
         {wordsState['4'][index]?.toUpperCase() || ''}
       </span>
-    </LetterCard>))
+    </LetterCard>
+  ));
+
   const itemList5 = boardItem5.map((_, index) => (
     <LetterCard customClass={`${colors['5'][index]} rounded-hard w-20 h-20`} key={index}>
       <span className="text-sub-big text-white">
         {wordsState['5'][index]?.toUpperCase() || ''}
       </span>
-    </LetterCard>))
+    </LetterCard>
+  ));
+
   return (
     <section className="grid grid-cols-5 grid-rows-5 gap-3 mb-12">
       {itemList1}
@@ -44,7 +65,8 @@ const Board = ({ wordsState, colors }): JSX.Element => {
       {itemList4}
       {itemList5}
     </section>
-  )
-}
+  );
+};
 
-export default Board
+export default Board;
+

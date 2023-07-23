@@ -6,6 +6,7 @@ interface StatisticsProps {
   isGameEnd: boolean;
   selectedWordArray?: string[];
   shouldShowWord: boolean;
+  statisticsWhileRunPlay: boolean;
 }
 
 const Statistics: React.FC<StatisticsProps> = ({
@@ -13,6 +14,7 @@ const Statistics: React.FC<StatisticsProps> = ({
   isGameEnd,
   selectedWordArray,
   shouldShowWord,
+  statisticsWhileRunPlay,
 }) => {
   const [wins, setWins] = useState<string>('0');
   const [rounds, setRounds] = useState<string>('0');
@@ -28,10 +30,6 @@ const Statistics: React.FC<StatisticsProps> = ({
       setRounds(`${localStorage.getItem('rounds')}`);
     }
   }, []);
-
-  useEffect(() => {
-    console.log('las rondas ', rounds);
-  }, [rounds]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -88,7 +86,7 @@ const Statistics: React.FC<StatisticsProps> = ({
         </>
       )}
       <Button
-        isDisabled={time === 0}
+        isDisabled={time !== 0}
         handleClick={handleClick}
         customClass="w-fit text-mid-bold text-white bg-hard-green rounded-soft py-2 px-12"
       >

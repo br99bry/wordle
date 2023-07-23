@@ -10,6 +10,7 @@ import Statistics from "@/components/molecules/Statistics"
 
 const Home = (): JSX.Element => {
   const [selectedWordArray, setSelectedWordArray] = useState([])
+  const [statisticsWhileRunPlay, setStatisticsWhileRunPlay] = useState(false)
   const [shouldShowWord, setShouldShowWord] = useState(false)
   const [isGameEnd, setIsGameEnd] = useState(false)
   const [wordsState, setWordsState] = useState({
@@ -27,7 +28,7 @@ const Home = (): JSX.Element => {
     4: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
     5: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
   })
-  const [firsTimePlaying, setFirstTimePlaying] = useState(false)
+  const [isOpenInstructions, setIsOpenInstructions] = useState(false)
   const [isOpenStatistics, setIsOpenStatistics] = useState(false)
   const [dictionary, setDictionary] = useState([])
   const generateRandomWord = (wordsWithoutAccents) => {
@@ -47,7 +48,7 @@ const Home = (): JSX.Element => {
     }
 
     if (localStorage.getItem('oldPlayer') !== 'true') {
-      setFirstTimePlaying(true)
+      setIsOpenInstructions(true)
       localStorage.setItem('wins', '0')
       localStorage.setItem('rounds', '0')
     }
@@ -56,7 +57,6 @@ const Home = (): JSX.Element => {
   }, [])
 
   const evaluateWord = () => {
-    console.log('evaluando')
     const localArrayColors = []
     const result = selectedWordArray.every((element, index) => {
       return element === wordsState[wordsState.currentWord][index].toLowerCase()
@@ -122,7 +122,7 @@ const Home = (): JSX.Element => {
     } else if (event.type === 'keydown') {
       letter = event.key
     }
-    console.log('la letra ess', letter, validateKeyAsLetter(letter))
+    console.log('la letra ess', letter, validateKeyAsLetter(letter), { event })
     if (validateKeyAsLetter(letter)) {
       console.log('entre aqui')
       setWordsState(prevState => ({
@@ -130,7 +130,7 @@ const Home = (): JSX.Element => {
         [prevState.currentWord]: [...prevState[prevState.currentWord], letter]
       }));
     }
-    if (letter === 'Backspace') {
+    if (letter === 'Backspace' || event.target?.nodeName === 'svg') {
       setWordsState(prevState => {
         const currentWord = prevState.currentWord;
         const updatedWordArray = [...prevState[currentWord]]; // Copia el arreglo
@@ -164,13 +164,15 @@ const Home = (): JSX.Element => {
   }, [wordsState.currentWord, wordsState[5]]);
 
   const handleCloseInstructions = () => {
-    setFirstTimePlaying(false)
-    localStorage.setItem('oldPlayer', 'true')
+    setIsOpenInstructions(false)
+    if (localStorage.getItem('oldPlayer') !== 'true') {
+      localStorage.setItem('oldPlayer', 'true')
+    }
   }
 
   const handleCloseStatistics = () => {
     setIsOpenStatistics(false)
-    if (isGameEnd) {
+    if (isGameEnd && !statisticsWhileRunPlay) {
       setIsGameEnd(false)
       setWordsState({
         currentWord: 1,
@@ -190,16 +192,29 @@ const Home = (): JSX.Element => {
       })
     }
   }
+  const handleInstructions = () => {
+    setIsOpenInstructions(!isOpenInstructions)
+  }
+  const handleStatistics = () => {
+    if (isOpenStatistics) {
+      console.log('cerrando stadisticas')
+      setStatisticsWhileRunPlay(false)
+      console.log('cerrando stadisticas')
+    } else {
+      setStatisticsWhileRunPlay(true)
+    }
+    setIsOpenStatistics(!isOpenStatistics)
+  }
   return (
     <Layout>
-      <Navbar />
+      <Navbar handleInstructions={handleInstructions} handleStatistics={handleStatistics} />
       <Board wordsState={wordsState} colors={colors} />
       <KeyBoard handleKeyClick={handleKeyClick} />
-      <PopUp isOpen={firsTimePlaying}>
+      <PopUp isOpen={isOpenInstructions}>
         <Instructions handleClick={handleCloseInstructions} />
       </PopUp>
       <PopUp isOpen={isOpenStatistics}>
-        <Statistics shouldShowWord={shouldShowWord} handleClick={handleCloseStatistics} isGameEnd={isGameEnd} selectedWordArray={selectedWordArray} />
+        <Statistics statisticsWhileRunPlay={statisticsWhileRunPlay} shouldShowWord={shouldShowWord} handleClick={handleCloseStatistics} isGameEnd={isGameEnd} selectedWordArray={selectedWordArray} />
       </PopUp>
     </Layout>
   )
