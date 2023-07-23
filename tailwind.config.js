@@ -14,9 +14,15 @@ module.exports = {
       },
       width: {
         "default-app": "638px",
+        "modal-app": "546px",
+        "box-76": "76px",
+      },
+      height: {
+        "box-76": "76px",
       },
       colors: {
         "soft-gray": "#F3F3F3",
+        "soft-gray-opacity": "rgba(243, 243, 243, 0.89)",
         "sub-soft-gray": "rgba(218, 220, 224, 0.30)",
         "mid-gray": "rgba(147, 155, 159, 0.30)",
         "sub-mid-gray": "#D3D6DA",
@@ -53,6 +59,33 @@ module.exports = {
             fontWeight: "600",
           },
         ],
+        "little-light": [
+          "19px",
+          {
+            lineHeight: "normal",
+            fontWeight: "400",
+          },
+        ],
+        "little-bold": [
+          "19px",
+          {
+            lineHeight: "normal",
+            fontWeight: "800",
+          },
+        ],
+        "mid-bold": [
+          "28px",
+          {
+            lineHeight: "normal",
+            fontWeight: "800",
+          },
+        ],
+      },
+      minHeight: {
+        "1/2": "50%",
+      },
+      maxHeight: {
+        95: "95vh",
       },
     },
   },

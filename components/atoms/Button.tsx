@@ -1,15 +1,37 @@
-import { useRef } from "react"
+import React, { useRef, MouseEvent } from "react";
 
-const Button = ({ children, handleClick }) => {
-  const button = useRef(null)
-  const handleIntermediateClick = (e) => {
-    console.log('')
-    button.current.blur()
-    handleClick(e)
-  }
-  return (
-    <button onClick={handleIntermediateClick} ref={button}>{children}</button>
-  )
+interface ButtonProps {
+  children: React.ReactNode;
+  handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  customClass?: string;
+  isDisabled?: boolean;
 }
 
-export default Button
+const Button: React.FC<ButtonProps> = ({
+  children,
+  handleClick,
+  customClass,
+  isDisabled,
+}) => {
+  const button = useRef<HTMLButtonElement>(null);
+
+  const handleIntermediateClick = (e: MouseEvent<HTMLButtonElement>): void => {
+    if (button.current) {
+      button.current.blur();
+    }
+    handleClick(e);
+  };
+
+  return (
+    <button
+      disabled={isDisabled}
+      className={customClass}
+      onClick={handleIntermediateClick}
+      ref={button}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
