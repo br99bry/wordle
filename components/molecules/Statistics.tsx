@@ -85,9 +85,9 @@ const Statistics: React.FC<StatisticsProps> = ({
         </>
       )}
       <Button
-        isDisabled={time > 0}
+        isDisabled={time > 0 && isGameEnd}
         handleClick={handleClick}
-        customClass={`w-fit text-mid-bold text-white ${time > 0 ? 'bg-red-500 cursor-no-drop' : 'bg-hard-green cursor-pointer'} rounded-soft py-2 px-12`}
+        customClass={`w-fit text-mid-bold text-white ${time > 0 && isGameEnd ? 'bg-red-500 cursor-no-drop' : 'bg-hard-green cursor-pointer'} rounded-soft py-2 px-12`}
       >
         {language.TEXT6}
       </Button>
