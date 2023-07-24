@@ -9,11 +9,22 @@ import Instructions from "@/components/molecules/Instructions"
 import Statistics from "@/components/molecules/Statistics"
 import evaluateWord from "@/assets/helpers/evaluateWord"
 import evaluateAlphabetLetters from "@/assets/helpers/evaluateAlphabetLetters"
-import generateColors from "@/assets/helpers/generateColors"
 
 const initialWordState: WordsState = {
   currentWord: 1,
   1: [], 2: [], 3: [], 4: [], 5: [],
+};
+
+const NUM_ROWS: number = 5;
+const NUM_COLUMNS: number = 5;
+const INITIAL_COLOR: string = 'bg-mid-gray';
+
+const generateColors = (): ColorsState => {
+  const colors: ColorsState = {};
+  for (let i = 1; i <= NUM_ROWS; i++) {
+    colors[i] = Array(NUM_COLUMNS).fill(INITIAL_COLOR);
+  }
+  return colors;
 };
 
 
