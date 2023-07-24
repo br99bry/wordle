@@ -1,8 +1,9 @@
 import React, { MouseEventHandler } from "react";
 import Button from "../atoms/Button";
 import LetterCard from "../atoms/LetterCard";
+import * as language from '@/assets/constants/language/sections/Instructions'
 
-interface InstructionsProps {
+type InstructionsProps = {
   handleClick: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -13,11 +14,11 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
 
   return (
     <main className="flex items-center flex-col dark:text-white">
-      <h2 className="w-full text-sub-big text-center mb-8">Cómo jugar</h2>
-      <p className="w-full text-little-light mb-4">Adivina la palabra oculta en cinco intentos.</p>
-      <p className="w-full text-little-light mb-4">Cada intento debe ser una palabra válida de 5 letras.</p>
-      <p className="w-full text-little-light mb-4">Después de cada intento el color de las letras cambia para mostrar qué tan cerca estás de acertar la palabra.</p>
-      <h5 className="w-full text-little-bold mb-6">Ejemplos</h5>
+      <h2 className="w-full text-sub-big text-center mb-8">{language.TEXT1}</h2>
+      <p className="w-full text-little-light mb-4">{language.TEXT2}</p>
+      <p className="w-full text-little-light mb-4">{language.TEXT3}</p>
+      <p className="w-full text-little-light mb-4">{language.TEXT4}</p>
+      <h5 className="w-full text-little-bold mb-6">{language.TEXT5}</h5>
       <div className="flex gap-3 w-full justify-center mb-2">
         {example1.map((item, index) => (
           <LetterCard
@@ -29,7 +30,7 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
           </LetterCard>
         ))}
       </div>
-      <p className="w-full text-little-light mb-6">La letra G está en la palabra y en la posición correcta.</p>
+      <p className="w-full text-little-light mb-6">{language.TEXT6}</p>
       <div className="flex gap-3 w-full justify-center mb-2">
         {example2.map((item, index) => (
           <LetterCard
@@ -41,7 +42,7 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
           </LetterCard>
         ))}
       </div>
-      <p className="w-full text-little-light mb-6">La letra C está en la palabra pero en la posición incorrecta.</p>
+      <p className="w-full text-little-light mb-6">{language.TEXT7}</p>
       <div className="flex gap-3 w-full justify-center mb-2">
         {example3.map((item, index) => (
           <LetterCard
@@ -53,15 +54,15 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
           </LetterCard>
         ))}
       </div>
-      <p className="w-full text-little-light mb-9">La letra O no está en la palabra.</p>
-      <p className="w-full text-little-light mb-8">Puede haber letras repetidas. Las pistas son independientes para cada letra.</p>
-      <p className="text-center w-full text-little-light mb-8">¡Una palabra nueva cada 5 minutos!</p>
+      <p className="w-full text-little-light mb-9">{language.TEXT8}</p>
+      <p className="w-full text-little-light mb-8">{language.TEXT9}</p>
+      <p className="text-center w-full text-little-light mb-8">{language.TEXT10}</p>
       <Button
         isDisabled={false}
         handleClick={handleClick}
         customClass="w-fit text-mid-bold text-white bg-hard-green rounded-soft py-2 px-12"
       >
-        ¡JUGAR!
+        {language.TEXT11}
       </Button>
     </main>
   );

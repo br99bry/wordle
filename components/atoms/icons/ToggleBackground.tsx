@@ -1,4 +1,4 @@
-const ToggleBackGround = () => (
+const ToggleBackGround = (): JSX.Element => (
   <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_i_115_1604)">
       <rect width="60" height="30" rx="15" fill="url(#paint0_linear_115_1604)" />

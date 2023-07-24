@@ -1,4 +1,4 @@
-const GraphIcon = () => (
+const GraphIcon = (): JSX.Element => (
   <svg className="dark:fill-white fill-white" width="40" height="36" viewBox="0 0 40 36" xmlns="http://www.w3.org/2000/svg">
     <g id="Chart_duotone_line">
       <rect id="Rectangle 25" x="4.93549" y="6" width="29.6129" height="24" rx="2" fill-opacity="0.49" />

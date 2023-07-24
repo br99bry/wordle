@@ -1,12 +1,9 @@
 import React from "react";
 import LetterCard from "../atoms/LetterCard";
-
-interface BoardProps {
-  wordsState: {
-    [key: string]: (string | undefined)[];
-  };
+type BoardProps = {
+  wordsState: WordsState;
   colors: {
-    [key: string]: string[];
+    [key: number]: string[];
   };
 }
 

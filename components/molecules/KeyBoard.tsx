@@ -3,7 +3,7 @@ import Button from "../atoms/Button";
 import LetterCard from "../atoms/LetterCard";
 import BackIcon from "../atoms/icons/BackIcon";
 
-interface KeyBoardProps {
+type KeyBoardProps = {
   handleKeyClick: MouseEventHandler<HTMLButtonElement>;
 }
 

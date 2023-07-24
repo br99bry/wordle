@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-interface LetterCardProps {
+type LetterCardProps = {
   children: ReactNode;
   customClass: string;
 }

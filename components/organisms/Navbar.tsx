@@ -4,7 +4,7 @@ import GraphIcon from "../atoms/icons/GraphIcon";
 import ToggleBackGround from "../atoms/icons/ToggleBackground";
 import Button from "../atoms/Button";
 
-interface NavbarProps {
+type NavbarProps = {
   handleInstructions: MouseEventHandler<HTMLButtonElement>;
   handleStatistics: MouseEventHandler<HTMLButtonElement>;
 }

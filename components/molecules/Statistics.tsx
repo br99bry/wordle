@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from "../atoms/Button";
+import * as language from '@/assets/constants/language/sections/Statistics'
 
-interface StatisticsProps {
+type StatisticsProps = {
   handleClick: () => void;
   isGameEnd: boolean;
   selectedWordArray?: string[];
@@ -17,7 +18,7 @@ const Statistics: React.FC<StatisticsProps> = ({
   const [wins, setWins] = useState<string>('0');
   const [rounds, setRounds] = useState<string>('0');
   const initialMinutes: number = 5;
-  const [time, setTime] = useState<number>(initialMinutes * 60); // Convert initialMinutes to seconds
+  const [time, setTime] = useState<number>(initialMinutes * 60);
   const [isRunning, setIsRunning] = useState<boolean>(true);
 
   useEffect(() => {
@@ -57,20 +58,20 @@ const Statistics: React.FC<StatisticsProps> = ({
 
   return (
     <main className="flex items-center flex-col dark:text-white">
-      <h2 className="w-full text-sub-big text-center mb-11">Estadísticas</h2>
+      <h2 className="w-full text-sub-big text-center mb-11">{language.TEXT1}</h2>
       <div className="flex justify-around items-center w-full mb-10">
         <div>
           <p className="text-center text-little-bold mb-6">{rounds}</p>
-          <p className="text-center text-little-light mb-6">Jugadas</p>
+          <p className="text-center text-little-light mb-6">{language.TEXT2}</p>
         </div>
         <div>
           <p className="text-center text-little-bold mb-6">{wins}</p>
-          <p className="text-center text-little-light mb-6">Victorias</p>
+          <p className="text-center text-little-light mb-6">{language.TEXT3}</p>
         </div>
       </div>
       {isGameEnd && shouldShowWord && (
         <p className="text-center w-full text-little-light mb-4">
-          La palabra era:
+          {language.TEXT4}
           {' '}
           <span className="text-little-bold">
             {selectedWordArray?.join('')}
@@ -79,16 +80,16 @@ const Statistics: React.FC<StatisticsProps> = ({
       )}
       {isGameEnd && (
         <>
-          <p className="text-center w-full text-little-light mb-4">SIGUIENTE PALABRA</p>
+          <p className="text-center w-full text-little-light mb-4">{language.TEXT5}</p>
           <p className="text-center w-full text-little-bold mb-8">{formatTime(time)}</p>
         </>
       )}
       <Button
-        isDisabled={time !== 0}
+        isDisabled={false}
         handleClick={handleClick}
         customClass="w-fit text-mid-bold text-white bg-hard-green rounded-soft py-2 px-12"
       >
-        Aceptar
+        {language.TEXT6}
       </Button>
     </main>
   );

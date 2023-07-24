@@ -1,6 +1,6 @@
 import React, { useRef, MouseEvent } from "react";
 
-interface ButtonProps {
+type ButtonProps = {
   children: React.ReactNode;
   handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
   customClass?: string;

@@ -4,45 +4,40 @@ import KeyBoard from "@/components/molecules/KeyBoard"
 import Layout from "@/components/templates/Layout"
 import PopUp from "@/components/organisms/PopUp"
 import words from "@/assets/constants/words"
-import { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import Instructions from "@/components/molecules/Instructions"
 import Statistics from "@/components/molecules/Statistics"
+import evaluateWord from "@/assets/helpers/evaluateWord"
+import evaluateAlphabetLetters from "@/assets/helpers/evaluateAlphabetLetters"
+import generateColors from "@/assets/helpers/generateColors"
+
+const initialWordState: WordsState = {
+  currentWord: 1,
+  1: [], 2: [], 3: [], 4: [], 5: [],
+};
+
 
 const Home = (): JSX.Element => {
-  const [selectedWordArray, setSelectedWordArray] = useState([])
-  const [statisticsWhileRunPlay, setStatisticsWhileRunPlay] = useState(false)
-  const [shouldShowWord, setShouldShowWord] = useState(false)
-  const [isGameEnd, setIsGameEnd] = useState(false)
-  const [wordsState, setWordsState] = useState({
-    currentWord: 1,
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [],
-  })
-  const [colors, setColors] = useState({
-    1: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-    2: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-    3: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-    4: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-    5: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-  })
-  const [isOpenInstructions, setIsOpenInstructions] = useState(false)
-  const [isOpenStatistics, setIsOpenStatistics] = useState(false)
-  const [dictionary, setDictionary] = useState([])
-  const generateRandomWord = (wordsWithoutAccents) => {
+  const [selectedWordArray, setSelectedWordArray] = useState<string[]>([])
+  const [shouldShowWord, setShouldShowWord] = useState<boolean>(false)
+  const [isGameEnd, setIsGameEnd] = useState<boolean>(false)
+  const [wordsState, setWordsState] = useState<WordsState>(initialWordState)
+  const [colors, setColors] = useState<ColorsState>(generateColors());
+  const [isOpenInstructions, setIsOpenInstructions] = useState<boolean>(false)
+  const [isOpenStatistics, setIsOpenStatistics] = useState<boolean>(false)
+  const [dictionary, setDictionary] = useState<string[]>([])
+  const generateRandomWord = (wordsWithoutAccents: string[]) => {
     const size = wordsWithoutAccents.length
     const random = Number.parseInt(`${Math.random() * size}`);
     const selectRandom = wordsWithoutAccents[random]
-    const arrayWord = selectRandom.split('')
+    const arrayWord: string[] = selectRandom.split('')
     console.log('palabra en letras', arrayWord)
     setSelectedWordArray(arrayWord)
   }
   useEffect(() => {
     const charge = async () => {
-      const array = await words.split('\n').filter(word => word.trim().length === 5)
-      const wordsWithoutAccents = await array.map((wordItem) => wordItem.normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+      const array: string[] = await words.split('\n').filter((word: string) => word.trim().length === 5)
+      const wordsWithoutAccents: string[] = await array.map((wordItem: string) => wordItem.normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
       setDictionary(wordsWithoutAccents)
       generateRandomWord(wordsWithoutAccents)
     }
@@ -56,20 +51,8 @@ const Home = (): JSX.Element => {
     charge()
   }, [])
 
-  const evaluateWord = () => {
-    const localArrayColors = []
-    const result = selectedWordArray.every((element, index) => {
-      return element === wordsState[wordsState.currentWord][index].toLowerCase()
-    });
-    selectedWordArray.forEach((element, index) => {
-      if (element === wordsState[wordsState.currentWord][index].toLowerCase()) {
-        localArrayColors.push('bg-hard-green')
-      } else if (selectedWordArray.includes(wordsState[wordsState.currentWord][index].toLowerCase())) {
-        localArrayColors.push('bg-hard-yellow')
-      } else {
-        localArrayColors.push('bg-hard-gray')
-      }
-    });
+  const handleEvaluateUserWord = () => {
+    const { result, localArrayColors } = evaluateWord(selectedWordArray, wordsState)
     setColors({
       ...colors,
       [wordsState.currentWord]: localArrayColors
@@ -78,15 +61,13 @@ const Home = (): JSX.Element => {
   }
 
   useEffect(() => {
-    console.log('las palabras', wordsState)
     if (wordsState[wordsState.currentWord]?.length === 5) {
-      const win = evaluateWord()
+      const win = handleEvaluateUserWord()
       setWordsState(prevState => ({
         ...prevState,
         currentWord: prevState.currentWord + 1
       }));
       if (win) {
-        console.log('ya ganaste')
         const wins = Number.parseInt(`${localStorage.getItem('wins')}`)
         const pointsOfWin = 1
         const rounds = Number.parseInt(`${localStorage.getItem('rounds')}`)
@@ -101,19 +82,11 @@ const Home = (): JSX.Element => {
   }, [wordsState[wordsState.currentWord]])
 
   useEffect(() => {
-    console.log('estado deee gammeeee', isGameEnd)
+    console.log('ESTADO DEL JUEGO', isGameEnd)
   }, [isGameEnd])
 
-  function validateKeyAsLetter(input) {
-    const regex = /^[A-Za-zñÑ]$/;
-
-    return regex.test(input);
-  }
-
-  const handleKeyClick = useCallback((event) => {
-    console.log('estado del juego ', isGameEnd);
+  const handleKeyClick = useCallback((event: React.KeyboardEvent | React.MouseEvent) => {
     if (isGameEnd) {
-      console.log('el juego ha terminado perro');
       return;
     }
     let letter = ''
@@ -122,9 +95,8 @@ const Home = (): JSX.Element => {
     } else if (event.type === 'keydown') {
       letter = event.key
     }
-    console.log('la letra ess', letter, validateKeyAsLetter(letter), { event })
-    if (validateKeyAsLetter(letter)) {
-      console.log('entre aqui')
+    console.log('la letra ess', letter, evaluateAlphabetLetters(letter), { event })
+    if (evaluateAlphabetLetters(letter)) {
       setWordsState(prevState => ({
         ...prevState,
         [prevState.currentWord]: [...prevState[prevState.currentWord], letter]
@@ -133,8 +105,8 @@ const Home = (): JSX.Element => {
     if (letter === 'Backspace' || event.target?.nodeName === 'svg') {
       setWordsState(prevState => {
         const currentWord = prevState.currentWord;
-        const updatedWordArray = [...prevState[currentWord]]; // Copia el arreglo
-        updatedWordArray.pop(); // Elimina el último elemento
+        const updatedWordArray = [...prevState[currentWord]];
+        updatedWordArray.pop();
         return {
           ...prevState,
           [currentWord]: updatedWordArray,
@@ -172,37 +144,17 @@ const Home = (): JSX.Element => {
 
   const handleCloseStatistics = () => {
     setIsOpenStatistics(false)
-    if (isGameEnd && !statisticsWhileRunPlay) {
+    if (isGameEnd) {
       setIsGameEnd(false)
-      setWordsState({
-        currentWord: 1,
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: [],
-      })
+      setWordsState(initialWordState)
       generateRandomWord(dictionary)
-      setColors({
-        1: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-        2: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-        3: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-        4: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-        5: ['bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray', 'bg-mid-gray'],
-      })
+      setColors(generateColors())
     }
   }
   const handleInstructions = () => {
     setIsOpenInstructions(!isOpenInstructions)
   }
   const handleStatistics = () => {
-    if (isOpenStatistics) {
-      console.log('cerrando stadisticas')
-      setStatisticsWhileRunPlay(false)
-      console.log('cerrando stadisticas')
-    } else {
-      setStatisticsWhileRunPlay(true)
-    }
     setIsOpenStatistics(!isOpenStatistics)
   }
   return (
@@ -214,7 +166,7 @@ const Home = (): JSX.Element => {
         <Instructions handleClick={handleCloseInstructions} />
       </PopUp>
       <PopUp isOpen={isOpenStatistics}>
-        <Statistics statisticsWhileRunPlay={statisticsWhileRunPlay} shouldShowWord={shouldShowWord} handleClick={handleCloseStatistics} isGameEnd={isGameEnd} selectedWordArray={selectedWordArray} />
+        <Statistics shouldShowWord={shouldShowWord} handleClick={handleCloseStatistics} isGameEnd={isGameEnd} selectedWordArray={selectedWordArray} />
       </PopUp>
     </Layout>
   )

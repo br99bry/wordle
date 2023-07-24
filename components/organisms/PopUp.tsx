@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-interface PopUpProps {
+type PopUpProps = {
   isOpen: boolean;
   children: ReactNode;
 }

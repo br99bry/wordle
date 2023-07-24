@@ -15,19 +15,19 @@
 
 /* Barra de desplazamiento */
 ::-webkit-scrollbar-thumb {
-  background-color: #F3F3F3;
+  background-color: #818181;
   border-radius: 15px;
 }
 
 /* Estilos para Firefox */
 /* Barra de desplazamiento */
 html {
-  scrollbar-color: #F3F3F3 transparent;
+  scrollbar-color: #818181 transparent;
   scrollbar-width: thin;
 }
 
 html {
-  scrollbar-face-color: #F3F3F3;
+  scrollbar-face-color: #818181;
 }
 
 /* Estilos para navegadores basados en WebKit */
@@ -39,7 +39,7 @@ html::-webkit-scrollbar {
 
 /* Barra de desplazamiento*/
 html::-webkit-scrollbar-thumb {
-  background-color: #F3F3F3;
+  background-color: #818181;
   border-radius: 15px;
 }
 
