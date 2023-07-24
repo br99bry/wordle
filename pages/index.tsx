@@ -93,10 +93,6 @@ const Home = (): JSX.Element => {
     }
   }, [wordsState[wordsState.currentWord]])
 
-  useEffect(() => {
-    console.log('ESTADO DEL JUEGO', isGameEnd)
-  }, [isGameEnd])
-
   const handleKeyClick = useCallback((event: React.KeyboardEvent | React.MouseEvent | KeyboardEvent) => {
     if (isGameEnd) {
       return;
@@ -107,7 +103,6 @@ const Home = (): JSX.Element => {
     } else if (event.type === 'keydown') {
       letter = (event as React.KeyboardEvent).key;
     }
-    console.log('la letra es', letter, evaluateAlphabetLetters(letter), { event });
     if (evaluateAlphabetLetters(letter)) {
       setWordsState(prevState => ({
         ...prevState,
