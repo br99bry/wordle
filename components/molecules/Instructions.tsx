@@ -12,7 +12,7 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
   const example3: string[] = ['C', 'A', 'N', 'T', 'O'];
 
   return (
-    <main className="flex items-center flex-col">
+    <main className="flex items-center flex-col dark:text-white">
       <h2 className="w-full text-sub-big text-center mb-8">Cómo jugar</h2>
       <p className="w-full text-little-light mb-4">Adivina la palabra oculta en cinco intentos.</p>
       <p className="w-full text-little-light mb-4">Cada intento debe ser una palabra válida de 5 letras.</p>
@@ -21,11 +21,11 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
       <div className="flex gap-3 w-full justify-center mb-2">
         {example1.map((item, index) => (
           <LetterCard
-            customClass={`${index === 0 ? 'bg-hard-green border-hard-green' : 'border-black'
+            customClass={`${index === 0 ? 'bg-hard-green border-hard-green' : 'border-black dark:border-hard-gray'
               } rounded-hard w-box-76 h-box-76 border `}
             key={index}
           >
-            <span className="text-sub-big text-black">{item}</span>
+            <span className="text-sub-big text-black dark:text-white">{item}</span>
           </LetterCard>
         ))}
       </div>
@@ -33,11 +33,11 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
       <div className="flex gap-3 w-full justify-center mb-2">
         {example2.map((item, index) => (
           <LetterCard
-            customClass={`${index === 2 ? 'bg-hard-yellow border-hard-yellow' : 'border-black'
+            customClass={`${index === 2 ? 'bg-hard-yellow border-hard-yellow' : 'border-black dark:border-hard-gray'
               } rounded-hard w-box-76 h-box-76 border`}
             key={index}
           >
-            <span className="text-sub-big text-black">{item}</span>
+            <span className="text-sub-big text-black dark:text-white">{item}</span>
           </LetterCard>
         ))}
       </div>
@@ -45,11 +45,11 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
       <div className="flex gap-3 w-full justify-center mb-2">
         {example3.map((item, index) => (
           <LetterCard
-            customClass={`${index === 4 ? 'bg-hard-gray border-hard-gray' : 'border-black'
+            customClass={`${index === 4 ? 'bg-hard-gray border-hard-gray' : 'border-black dark:border-hard-gray'
               } rounded-hard w-box-76 h-box-76 border`}
             key={index}
           >
-            <span className="text-sub-big text-black">{item}</span>
+            <span className="text-sub-big text-black dark:text-white">{item}</span>
           </LetterCard>
         ))}
       </div>

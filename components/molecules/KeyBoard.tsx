@@ -13,11 +13,11 @@ const KeyBoard: React.FC<KeyBoardProps> = ({ handleKeyClick }) => {
   const keysRowThree: string[] = ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Borrar'];
 
   return (
-    <section className="w-full bg-sub-soft-gray p-5 rounded-hard flex flex-col items-start">
+    <section className="w-full bg-sub-soft-gray p-5 rounded-hard flex flex-col items-start dark:bg-hard-blue">
       <div className="flex justify-center items-center gap-2 mb-3 ml-11">
         {keysRowOne.map((item) => (
           <LetterCard
-            customClass="bg-sub-mid-gray rounded-soft w-fit h-fit px-3 py-1.5 text-little text-low-gray min-w-key-board min-h-key-board"
+            customClass="bg-sub-mid-gray dark:bg-mid-blue dark:text-white rounded-soft w-fit h-fit px-3 py-1.5 text-little text-low-gray min-w-key-board min-h-key-board"
             key={item}
           >
             <Button handleClick={handleKeyClick}>{item}</Button>
@@ -27,7 +27,7 @@ const KeyBoard: React.FC<KeyBoardProps> = ({ handleKeyClick }) => {
       <div className="flex justify-center items-center gap-2 mb-3 ml-16">
         {keysRowTwo.map((item) => (
           <LetterCard
-            customClass="bg-sub-mid-gray rounded-soft w-fit h-fit px-3 py-1.5 text-little text-low-gray min-w-key-board min-h-key-board"
+            customClass="bg-sub-mid-gray dark:bg-mid-blue dark:text-white rounded-soft w-fit h-fit px-3 py-1.5 text-little text-low-gray min-w-key-board min-h-key-board"
             key={item}
           >
             <Button handleClick={handleKeyClick}>{item}</Button>
@@ -37,7 +37,7 @@ const KeyBoard: React.FC<KeyBoardProps> = ({ handleKeyClick }) => {
       <div className="flex justify-center items-center gap-2 mb-3 ml-6">
         {keysRowThree.map((item) => (
           <LetterCard
-            customClass="bg-sub-mid-gray rounded-soft w-fit h-fit px-3 py-1.5 text-little text-low-gray min-w-key-board min-h-key-board"
+            customClass="bg-sub-mid-gray dark:bg-mid-blue dark:text-white rounded-soft w-fit h-fit px-3 py-1.5 text-little text-low-gray min-w-key-board min-h-key-board"
             key={item}
           >
             <Button handleClick={handleKeyClick}>{item === 'Borrar' ? <BackIcon /> : item}</Button>

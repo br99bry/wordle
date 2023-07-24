@@ -6,7 +6,6 @@ interface StatisticsProps {
   isGameEnd: boolean;
   selectedWordArray?: string[];
   shouldShowWord: boolean;
-  statisticsWhileRunPlay: boolean;
 }
 
 const Statistics: React.FC<StatisticsProps> = ({
@@ -14,7 +13,6 @@ const Statistics: React.FC<StatisticsProps> = ({
   isGameEnd,
   selectedWordArray,
   shouldShowWord,
-  statisticsWhileRunPlay,
 }) => {
   const [wins, setWins] = useState<string>('0');
   const [rounds, setRounds] = useState<string>('0');
@@ -58,7 +56,7 @@ const Statistics: React.FC<StatisticsProps> = ({
   };
 
   return (
-    <main className="flex items-center flex-col">
+    <main className="flex items-center flex-col dark:text-white">
       <h2 className="w-full text-sub-big text-center mb-11">Estadísticas</h2>
       <div className="flex justify-around items-center w-full mb-10">
         <div>
@@ -70,7 +68,7 @@ const Statistics: React.FC<StatisticsProps> = ({
           <p className="text-center text-little-light mb-6">Victorias</p>
         </div>
       </div>
-      {shouldShowWord && (
+      {isGameEnd && shouldShowWord && (
         <p className="text-center w-full text-little-light mb-4">
           La palabra era:
           {' '}

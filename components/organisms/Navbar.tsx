@@ -10,10 +10,10 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ handleInstructions, handleStatistics }) => (
-  <nav className="flex py-7 pr-5 pl-5 justify-between w-full mb-20 bg-soft-gray rounded-hard items-center">
+  <nav className="flex py-7 pr-5 pl-5 justify-between w-full mb-20 bg-soft-gray rounded-hard items-center dark:bg-hard-blue">
     <Button isDisabled={false} handleClick={handleInstructions}><QuestionIcon /></Button>
     <div>
-      <h1 className="text-big text-soft-black">WORDLE</h1>
+      <h1 className="text-big text-soft-black dark:text-white">WORDLE</h1>
     </div>
     <div className="flex gap-1.5 items-center">
       <Button isDisabled={false} handleClick={handleStatistics}>

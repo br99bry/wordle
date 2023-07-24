@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -31,6 +32,11 @@ module.exports = {
         "hard-green": "#66A060",
         "soft-black": "#202537",
         "low-gray": "#56575E",
+        "dark-app-transparent": "rgba(38, 43, 60, 0.89)",
+        "dark-app": "#262B3C",
+        "hard-blue": "#2c3141",
+        "mid-blue": "#565f7e",
+        "gray-icons": "#818181",
       },
       borderRadius: {
         soft: "5px",

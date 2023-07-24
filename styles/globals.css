@@ -6,4 +6,41 @@
   html {
     font-family: 'Roboto', sans-serif;
   }
+  /* Estilos para Chrome, Edge y Safari */
+/* Barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+/* Barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+  background-color: #F3F3F3;
+  border-radius: 15px;
+}
+
+/* Estilos para Firefox */
+/* Barra de desplazamiento */
+html {
+  scrollbar-color: #F3F3F3 transparent;
+  scrollbar-width: thin;
+}
+
+html {
+  scrollbar-face-color: #F3F3F3;
+}
+
+/* Estilos para navegadores basados en WebKit */
+/* Barra de desplazamiento */
+html::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+/* Barra de desplazamiento*/
+html::-webkit-scrollbar-thumb {
+  background-color: #F3F3F3;
+  border-radius: 15px;
+}
+
 }
