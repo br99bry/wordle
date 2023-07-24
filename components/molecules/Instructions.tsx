@@ -60,7 +60,7 @@ const Instructions: React.FC<InstructionsProps> = ({ handleClick }) => {
       <Button
         isDisabled={false}
         handleClick={handleClick}
-        customClass="w-fit text-mid-bold text-white bg-hard-green rounded-soft py-2 px-12"
+        customClass="w-fit text-mid-bold text-white bg-hard-green rounded-soft py-2 px-12 cursor-pointer"
       >
         {language.TEXT11}
       </Button>

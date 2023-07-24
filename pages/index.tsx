@@ -43,7 +43,7 @@ const Home = (): JSX.Element => {
     const random = Number.parseInt(`${Math.random() * size}`);
     const selectRandom = wordsWithoutAccents[random]
     const arrayWord: string[] = selectRandom.split('')
-    console.log('palabra en letras', arrayWord)
+    console.log('palabra muy secreta', arrayWord)
     setSelectedWordArray(arrayWord)
   }
   useEffect(() => {
