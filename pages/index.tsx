@@ -32,6 +32,7 @@ const Home = (): JSX.Element => {
   const [selectedWordArray, setSelectedWordArray] = useState<string[]>([])
   const [shouldShowWord, setShouldShowWord] = useState<boolean>(false)
   const [isGameEnd, setIsGameEnd] = useState<boolean>(false)
+  const [isDarkThemeActive, setIsDarkThemeActive] = useState<boolean>(false)
   const [wordsState, setWordsState] = useState<WordsState>(initialWordState)
   const [colors, setColors] = useState<ColorsState>(generateColors());
   const [isOpenInstructions, setIsOpenInstructions] = useState<boolean>(false)
@@ -139,16 +140,27 @@ const Home = (): JSX.Element => {
   }, [handleKeyClick]);
   useEffect(() => {
     if (wordsState.currentWord === 5 && wordsState[5].length === 5) {
-      const rounds = Number.parseInt(`${localStorage.getItem('rounds')}`)
-      const addRound = 1
-      if (rounds >= 0) {
-        localStorage.setItem('rounds', `${rounds + addRound}`)
+      if (!handleEvaluateUserWord()) {
+        const rounds = Number.parseInt(`${localStorage.getItem('rounds')}`)
+        const addRound = 1
+        if (rounds >= 0) {
+          localStorage.setItem('rounds', `${rounds + addRound}`)
+        }
+        setShouldShowWord(true)
       }
       setIsGameEnd(true)
       setIsOpenStatistics(true)
-      setShouldShowWord(true)
     }
   }, [wordsState.currentWord, wordsState[5]]);
+
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    if (isDarkThemeActive) {
+      htmlElement.classList.add("dark");
+    } else {
+      htmlElement.classList.remove("dark");
+    }
+  }, [isDarkThemeActive])
 
   const handleCloseInstructions = () => {
     setIsOpenInstructions(false)
@@ -172,9 +184,15 @@ const Home = (): JSX.Element => {
   const handleStatistics = () => {
     setIsOpenStatistics(!isOpenStatistics)
   }
+
+  const handleTheme = () => {
+    setIsDarkThemeActive(!isDarkThemeActive)
+  }
+
+
   return (
     <Layout>
-      <Navbar handleInstructions={handleInstructions} handleStatistics={handleStatistics} />
+      <Navbar handleInstructions={handleInstructions} handleStatistics={handleStatistics} handleTheme={handleTheme} isDarkThemeActive={isDarkThemeActive} />
       <Board wordsState={wordsState} colors={colors} />
       <KeyBoard handleKeyClick={handleKeyClick} />
       <PopUp isOpen={isOpenInstructions}>
