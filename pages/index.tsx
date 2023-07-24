@@ -96,24 +96,24 @@ const Home = (): JSX.Element => {
     console.log('ESTADO DEL JUEGO', isGameEnd)
   }, [isGameEnd])
 
-  const handleKeyClick = useCallback((event: React.KeyboardEvent | React.MouseEvent) => {
+  const handleKeyClick = useCallback((event: React.KeyboardEvent | React.MouseEvent | KeyboardEvent) => {
     if (isGameEnd) {
       return;
     }
-    let letter = ''
+    let letter = '';
     if (event.type === 'click') {
-      letter = event.target.textContent
+      letter = (event.target as HTMLElement)?.textContent || '';
     } else if (event.type === 'keydown') {
-      letter = event.key
+      letter = (event as React.KeyboardEvent).key;
     }
-    console.log('la letra ess', letter, evaluateAlphabetLetters(letter), { event })
+    console.log('la letra es', letter, evaluateAlphabetLetters(letter), { event });
     if (evaluateAlphabetLetters(letter)) {
       setWordsState(prevState => ({
         ...prevState,
         [prevState.currentWord]: [...prevState[prevState.currentWord], letter]
       }));
     }
-    if (letter === 'Backspace' || event.target?.nodeName === 'svg') {
+    if (letter === 'Backspace' || (event.target as HTMLElement)?.nodeName === 'svg') {
       setWordsState(prevState => {
         const currentWord = prevState.currentWord;
         const updatedWordArray = [...prevState[currentWord]];
@@ -124,13 +124,17 @@ const Home = (): JSX.Element => {
         };
       });
     }
-  }, [isGameEnd]);
+  }, [isGameEnd, setWordsState]);
+
 
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyClick);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      handleKeyClick(event);
+    };
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyClick);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [handleKeyClick]);
   useEffect(() => {
